@@ -2,7 +2,7 @@ BesanconWorker
 =============
 Besoncon model models distribution of the stars in the Milky Way galaxy. 
 ``BesanconWorker`` is a python class which provides a set of methods to run several 
-jobs on Besoncon web service. It BesanconWorker object can login, create job,
+jobs on Besoncon web service. A BesanconWorker object can login, create job,
 fill job form, submit job, download result, and delete job. The user need to have
 an account on https://model.obs-besancon.fr/ws/ (username and password).
 

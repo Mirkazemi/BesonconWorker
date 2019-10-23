@@ -86,7 +86,6 @@ if __name__ == '__main__':
     # if you prefer to delete all previous jobs
 #    bw.delete_all_jobs()
     
-    
     filters_2 = ['R', 'I']
     
     # Creating and running the jobs in a loop:  
@@ -127,18 +126,20 @@ if __name__ == '__main__':
         jobID = bw.jobs_df['jobId'].values[-1]
         
         # setting the job parameters:        
-        
-        
-
-    
         bw.set_param(jobID = jobID, 
                      options = options,
                      variables = variables)
         
+        # running the job and wait until job completation 
         bw.run(jobID = jobID)
+        
+        # doanloading the results
         bw.download(jobID = jobID)
+              
+        # deleting completed job
         bw.delete_job(jobID = jobID)
         
+        # renaming the result files
         file_name_old = 'output.fits'
         head_name_old = 'output-head'   
         
@@ -149,6 +150,8 @@ if __name__ == '__main__':
                    os.path.join(args.result_folder, fits_file_new))
         os.rename( os.path.join(args.result_folder, head_name_old),
                    os.path.join(args.result_folder, head_file_new))   
+              
+        # writing a report line for completed jon
         report = ','.join([str(i), str(row['ra']), str(row['dec']), 
                                   str(args.area), fits_file_new, head_file_new,
                                   str(time.time() - ti0)])
@@ -156,7 +159,8 @@ if __name__ == '__main__':
         with open(os.path.join(args.result_folder, 'results.csv'), 'a') as w_res:
             w_res.write(report)
             w_res.write('\n')
-            
+    
+    # printing the total time for running all jobs
     print('total time:', time.time() - t0)
 
 
